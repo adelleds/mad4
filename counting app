@@ -1,0 +1,59 @@
+import 'package:flutter/material.dart';
+class Counter extends StatefulWidget {
+  const Counter({super.key});
+  @override
+  State<Counter> createState() => _CounterState();}
+class _CounterState extends State<Counter> {
+  int _counter = 0;
+  void _increment() {
+    setState(() {
+      _counter++;
+    });}
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.center,
+      children: <Widget>[
+        Text(
+          'Welcome to the Counter App',
+          style: TextStyle(
+            fontSize: 24,
+            fontWeight: FontWeight.bold,
+            color: Colors.blueAccent,), ),
+        const SizedBox(height: 20),
+        Row(
+          mainAxisAlignment: 
+MainAxisAlignment.center,
+     children: <Widget>[
+            ElevatedButton(
+              onPressed: _increment,
+              child: const Text('Increment'), ),
+            const SizedBox(width: 16),
+            Text(
+              'Count: $_counter',
+              style: TextStyle(
+                fontSize: 20,
+                fontWeight: FontWeight.w500,
+                color: Colors.green,
+              ), ), ],),],);}}
+
+void main() {
+  runApp(
+    MaterialApp(
+      debugShowCheckedModeBanner: false,
+      home: Scaffold(
+        appBar: AppBar(
+          title: Text('Counter App'),
+          backgroundColor: Colors.blue, ),
+        body: Center(
+          child: Counter(), ),
+        floatingActionButton: FloatingActionButton(
+          onPressed: () {},
+          child: Icon(Icons.add),
+          backgroundColor: Colors.blue,
+        ),),), );}
+
+
+
+
+
