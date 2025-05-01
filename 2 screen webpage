@@ -1,0 +1,81 @@
+import 'package:flutter/material.dart';
+void main() {
+  runApp(MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: FirstScreen(),
+    );
+  }
+}
+class FirstScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('First Screen'),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: ElevatedButton(
+          style: ElevatedButton.styleFrom(
+            padding: EdgeInsets.all(20),
+          ),
+          child: Text(
+            'Second Screen',
+            style: TextStyle(fontSize: 20),
+          ),
+          onPressed: () {
+            Navigator.push(
+              context,
+              MaterialPageRoute(
+                builder: (context) => SecondScreen(),
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+class SecondScreen extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('Second Screen'),
+        centerTitle: true,
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Text(
+              'Welcome to Second Screen!',
+              style: TextStyle(fontSize: 24),
+            ),
+            SizedBox(height: 20),  // Adds some space between the text and button
+            ElevatedButton(
+              style: ElevatedButton.styleFrom(
+                padding: EdgeInsets.all(20),
+              ),
+              child: Text(
+                'Go Back',
+                style: TextStyle(fontSize: 20),
+              ),
+              onPressed: () {
+                Navigator.pop(context);  // This will return to the previous screen
+              },
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
