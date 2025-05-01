@@ -1,0 +1,114 @@
+import 'package:flutter/material.dart';
+import 'dart:math';
+
+void main() {
+  runApp(const MyApp());
+}
+
+class MyApp extends StatelessWidget {
+  const MyApp({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'Rock Paper Scissors',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+      ),
+      home: const RockPaperScissorsPage(),
+    );
+  }
+}
+
+class RockPaperScissorsPage extends StatefulWidget {
+  const RockPaperScissorsPage({super.key});
+
+  @override
+  State<RockPaperScissorsPage> createState() => _RockPaperScissorsPageState();
+}
+
+enum Choice { rock, paper, scissors }
+
+class _RockPaperScissorsPageState extends State<RockPaperScissorsPage> {
+  Choice? _userChoice;
+  Choice? _computerChoice;
+  String _result = 'Choose your move!';
+
+  void _play(Choice userChoice) {
+    setState(() {
+      _userChoice = userChoice;
+      _computerChoice = Choice.values[Random().nextInt(Choice.values.length)];
+
+      if (_userChoice == _computerChoice) {
+        _result = 'It\'s a tie!';
+      } else if ((_userChoice == Choice.rock && _computerChoice == Choice.scissors) ||
+          (_userChoice == Choice.paper && _computerChoice == Choice.rock) ||
+          (_userChoice == Choice.scissors && _computerChoice == Choice.paper)) {
+        _result = 'You win!';
+      } else {
+        _result = 'You lose!';
+      }
+    });
+  }
+
+  String _choiceToString(Choice? choice) {
+    if (choice == null) {
+      return 'No choice yet';
+    }
+    switch (choice) {
+      case Choice.rock:
+        return 'Rock';
+      case Choice.paper:
+        return 'Paper';
+      case Choice.scissors:
+        return 'Scissors';
+    }
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: const Text('Rock Paper Scissors'),
+      ),
+      body: Center(
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            Text(
+              'Your choice: ${_choiceToString(_userChoice)}',
+              style: const TextStyle(fontSize: 18),
+            ),
+            Text(
+              'Computer\'s choice: ${_choiceToString(_computerChoice)}',
+              style: const TextStyle(fontSize: 18),
+            ),
+            const SizedBox(height: 20),
+            Text(
+              _result,
+              style: const TextStyle(fontSize: 24, fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 30),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+              children: [
+                ElevatedButton(
+                  onPressed: () => _play(Choice.rock),
+                  child: const Text('Rock'),
+                ),
+                ElevatedButton(
+                  onPressed: () => _play(Choice.paper),
+                  child: const Text('Paper'),
+                ),
+                ElevatedButton(
+                  onPressed: () => _play(Choice.scissors),
+                  child: const Text('Scissors'),
+                ),
+              ],
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
