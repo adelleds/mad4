@@ -1,0 +1,205 @@
+import 'package:flutter/material.dart';
+void main() {
+  runApp(MyApp());
+}
+class MyApp extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return MaterialApp(
+      title: 'MAD EXP 4',
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        visualDensity: VisualDensity.adaptivePlatformDensity,
+      ),
+      home: MyHomePage(),
+    );
+  }
+}
+class MyHomePage extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) {
+    return Scaffold(
+      appBar: AppBar(
+        title: Text('MAD EXP 4'),
+        backgroundColor: Colors.blueAccent,
+      ),
+      body: SingleChildScrollView(
+        child: Padding(
+          padding: const EdgeInsets.all(16.0),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              // Header Row with titles
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  _headerText('Destinations'),
+                  _headerText('Adventures'),
+                ],
+              ),
+              SizedBox(height: 20),
+
+              // ListView section
+              Container(
+                color: Colors.blue[50],
+                padding: EdgeInsets.all(8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Popular Destinations',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blueAccent,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Container(
+                      height: 150, // Reduced height for the ListView
+                      child: ListView.builder(
+                        itemCount: 3, // Reduced number of items
+                        itemBuilder: (context, index) {
+                          return Card(
+                            elevation: 4,
+                            margin: EdgeInsets.symmetric(vertical: 8),
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: ListTile(
+                              leading: Icon(
+                                Icons.location_on,
+                                color: Colors.blue,
+                                size: 30,
+                              ),
+                              title: Text('Destination ${index + 1}'),
+                              subtitle: Text('Explore this beautiful place!'),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 20),
+
+              // GridView section
+              Container(
+                color: Colors.blue[50],
+                padding: EdgeInsets.all(8),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Text(
+                      'Top Adventures',
+                      style: TextStyle(
+                        fontSize: 20,
+                        fontWeight: FontWeight.bold,
+                        color: Colors.blueAccent,
+                      ),
+                    ),
+                    SizedBox(height: 10),
+                    Container(
+                      height: 180, // Reduced height for the GridView
+                      child: GridView.builder(
+                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                          crossAxisCount: 2, // Fewer columns for less crowding
+                          crossAxisSpacing: 16.0,
+                          mainAxisSpacing: 16.0,
+                        ),
+                        itemCount: 4, // Reduced number of items
+                        itemBuilder: (context, index) {
+                          return Card(
+                            color: Colors.blue[100],
+                            elevation: 5,
+                            shape: RoundedRectangleBorder(
+                              borderRadius: BorderRadius.circular(12),
+                            ),
+                            child: Center(
+                              child: Column(
+                                mainAxisAlignment: MainAxisAlignment.center,
+                                children: [
+                                  Icon(
+                                    Icons.explore,
+                                    size: 40,
+                                    color: Colors.blueAccent,
+                                  ),
+                                  SizedBox(height: 10),
+                                  Text(
+                                    'Adventure ${index + 1}',
+                                    textAlign: TextAlign.center,
+                                    style: TextStyle(
+                                      fontSize: 16,
+                                      fontWeight: FontWeight.bold,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            ),
+                          );
+                        },
+                      ),
+                    ),
+                  ],
+                ),
+              ),
+              SizedBox(height: 20),
+
+              // Table section with reduced content
+              Text(
+                'Adventure Details:',
+                style: TextStyle(
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  color: Colors.blueAccent,
+                ),
+              ),
+              SizedBox(height: 10),
+              Table(
+                border: TableBorder.all(color: Colors.blueAccent, width: 1),
+                children: [
+                  _tableRow('Adventure', 'Location', 'Difficulty'),
+                  _tableRow('Mountain Trek', 'Himalayas', 'Hard'),
+                  _tableRow('Cliffside Biking', 'Cape Town', 'Medium'),
+                ],
+              ),
+            ],
+          ),
+        ),
+      ),
+    );
+  }
+
+  // Helper method to create header text
+  Widget _headerText(String text) {
+    return Text(
+      text,
+      style: TextStyle(
+        fontSize: 18,
+        fontWeight: FontWeight.bold,
+        color: Colors.blueAccent,
+      ),
+    );
+  }
+
+  // Helper method to create table rows
+  TableRow _tableRow(String adventure, String location, String difficulty) {
+    return TableRow(
+      children: [
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(adventure, style: TextStyle(fontSize: 16)),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(location, style: TextStyle(fontSize: 16)),
+        ),
+        Padding(
+          padding: const EdgeInsets.all(8.0),
+          child: Text(difficulty, style: TextStyle(fontSize: 16)),
+        ),
+      ],
+    );
+  }
+}
